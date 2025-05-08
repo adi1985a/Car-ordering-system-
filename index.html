@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Ordering System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="main-nav">
+            <img src="images/car-logo.png" alt="Car Logo" class="logo">
+            <h1>Car Ordering System</h1>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="car-showcase">
+            <img src="images/car1.jpg" alt="Luxury Sedan" class="car-image">
+            <img src="images/car2.jpg" alt="Sports Car" class="car-image">
+            <img src="images/car3.jpg" alt="SUV" class="car-image">
+			<img src="images/car4.jpg" alt="Feel the wheel" class="car-image">
+        </div>
+        <form id="carOrderForm" class="order-form" novalidate>
+            <div class="form-group">
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" name="name" required 
+                       pattern="[A-Za-z\s]+" minlength="2">
+                <span class="error-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <span class="error-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="carModel">Car Model:</label>
+                <select id="carModel" name="carModel" required>
+                    <option value="">Select a model</option>
+                    <option value="sedan">Sedan</option>
+                    <option value="suv">SUV</option>
+                    <option value="sports">Sports Car</option>
+                    <option value="coupe">Coupe</option>
+                    <option value="hatchback">Hatchback</option>
+                    <option value="electric">Electric</option>
+                </select>
+                <span class="error-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="brand">Car Brand:</label>
+                <select id="brand" name="brand" required>
+                    <option value="">Select a brand</option>
+                    <option value="toyota">Toyota</option>
+                    <option value="honda">Honda</option>
+                    <option value="bmw">BMW</option>
+                    <option value="mercedes">Mercedes</option>
+                    <option value="audi">Audi</option>
+                    <option value="volkswagen">Volkswagen</option>
+                </select>
+                <span class="error-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="color">Color:</label>
+                <input type="color" id="color" name="color" required>
+            </div>
+
+            <div class="form-group">
+                <label for="extras">Additional Features:</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="extras" value="gps"> GPS Navigation
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="extras" value="leather"> Leather Seats
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="extras" value="sunroof"> Sunroof
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="extras" value="parking"> Parking Sensors
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="extras" value="camera"> Backup Camera
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="extras" value="bluetooth"> Bluetooth System
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="extras" value="climate"> Climate Control
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Place Order</button>
+        </form>
+    </main>
+
+    <div id="notification" class="notification"></div>
+
+    <div id="modalOverlay" class="modal-overlay"></div>
+    <div id="orderModal" class="modal">
+        <div class="success-icon">✓</div>
+        <h2>Order Placed Successfully!</h2>
+        <p>Thank you for your order. Your request has been received.</p>
+        <p class="dealer-message">Our dealer will contact you within 3 business days to discuss your order details.</p>
+        <button class="modal-close" onclick="closeModal()">Close</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
