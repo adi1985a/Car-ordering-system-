@@ -23,6 +23,10 @@ _An HTML, CSS, and JavaScript-based web page for configuring and "ordering" cars
 
 **AutoOrder Pro**, developed by Adrian Lesniak, is a client-side web application built with HTML, CSS, and JavaScript, designed to simulate a car ordering system. Users can fill out a detailed form specifying their full name, email, preferred car model, brand, color, and select optional extras like GPS or a sunroof. The page features robust **client-side validation** for required fields and correct data formats (name, email). It showcases images of available cars and provides immediate feedback upon form submission via a success modal. All styling is managed by `styles.css`, while `script.js` handles form validation logic and modal display.
 
+<p align="center">
+  <img src="screenshots/1.gif" width="70%">
+</p>
+
 ## ✨ Key Features
 
 *   📝 **Comprehensive Order Form**:
@@ -52,9 +56,17 @@ _An HTML, CSS, and JavaScript-based web page for configuring and "ordering" cars
 
 ## 🖼️ Screenshots (Conceptual)
 
-**Coming soon!**
+_Screenshots of: the car ordering form, the car image showcase, an example of a validation error message, and the success modal after form submission._
 
-_This section would ideally show screenshots of: the car ordering form, the car image showcase, an example of a validation error message, and the success modal after form submission._
+<p align="center">
+  <img src="screenshots\1.jpg" width="300"/>
+  <img src="screenshots\2.jpg" width="300"/>
+  <img src="screenshots\3.jpg" width="300"/>
+  <img src="screenshots\4.jpg" width="300"/>
+  <img src="screenshots\5.jpg" width="300"/>
+  <img src="screenshots\6.jpg" width="300"/>
+</p>
+
 
 ## 🛠️ Technical Stack & Requirements
 
