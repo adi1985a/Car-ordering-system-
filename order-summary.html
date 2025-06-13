@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Summary</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="main-nav">
+            <img src="images/car-logo.png" alt="Car Logo" class="logo">
+            <h1>Order Summary</h1>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="order-summary-container">
+            <h2>Thank you for your order!</h2>
+            
+            <div class="selected-car-image">
+                <img id="selectedCarImage" src="" alt="Selected car" class="main-car-image">
+            </div>
+
+            <div class="order-details">
+                <h3>Order Details:</h3>
+                <div id="orderSummary" class="summary-grid">
+                    <!-- Order details will be displayed here -->
+                </div>
+            </div>
+
+            <p class="dealer-message">Our dealer will contact you within 3 business days to discuss your order details.</p>
+            <a href="index.html" class="submit-btn">Back to Home</a>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const orderSummaryDiv = document.getElementById('orderSummary');
+            const selectedCarImage = document.getElementById('selectedCarImage');
+            const urlParams = new URLSearchParams(window.location.search);
+
+            // Map car models to images
+            const carImages = {
+                'sedan': 'images/car1.jpg',
+                'suv': 'images/car3.jpg',
+                'sports': 'images/car2.jpg',
+                'coupe': 'images/car4.jpg',
+                'hatchback': 'images/car2.jpg',
+                'electric': 'images/car1.jpg'
+            };
+
+            // Set selected car image
+            const carModel = urlParams.get('carModel');
+            if (carModel && carImages[carModel]) {
+                selectedCarImage.src = carImages[carModel];
+            }
+
+            // Create order summary
+            let summaryHTML = `
+                <div class="summary-item">
+                    <strong>Full Name:</strong>
+                    <span>${urlParams.get('name')}</span>
+                </div>
+                <div class="summary-item">
+                    <strong>Email:</strong>
+                    <span>${urlParams.get('email')}</span>
+                </div>
+                <div class="summary-item">
+                    <strong>Car Model:</strong>
+                    <span>${urlParams.get('carModel')}</span>
+                </div>
+                <div class="summary-item">
+                    <strong>Brand:</strong>
+                    <span>${urlParams.get('brand')}</span>
+                </div>
+                <div class="summary-item">
+                    <strong>Color:</strong>
+                    <span style="display: inline-block; width: 20px; height: 20px; background-color: ${urlParams.get('color')}; border-radius: 50%; vertical-align: middle;"></span>
+                </div>
+            `;
+
+            const extras = urlParams.getAll('extras');
+            if (extras.length > 0) {
+                summaryHTML += `
+                    <div class="summary-item">
+                        <strong>Additional Features:</strong>
+                        <ul class="extras-list">
+                            ${extras.map(extra => `<li>${extra}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+
+            orderSummaryDiv.innerHTML = summaryHTML;
+        });
+    </script>
+</body>
+</html>

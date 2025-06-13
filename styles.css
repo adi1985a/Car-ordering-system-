@@ -192,18 +192,42 @@ input:focus, select:focus {
 }
 
 .car-showcase {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1rem;
+    display: flex;
+    flex-direction: column; /* Ustawienie elementów w kolumnie */
+    align-items: center; /* Wyśrodkowanie w poziomie */
     margin-bottom: 2rem;
 }
 
+.main-car-image {
+    width: 100%; /* Szerokość równa szerokości formularza */
+    max-width: 600px; /* Maksymalna szerokość */
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.other-cars {
+    display: flex;
+    justify-content: space-around; /* Równomierne rozmieszczenie zdjęć */
+    width: 100%; /* Szerokość równa szerokości formularza */
+    max-width: 600px; /* Maksymalna szerokość */
+}
+
+.other-cars .car-image {
+    width: 30%; /* Trzy zdjęcia obok siebie */
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
 .car-image {
-    width: 100%;
-    height: 200px;
+    width: 200px; /* Zwiększenie szerokości */
+    height: auto; /* Automatyczne dopasowanie wysokości */
     object-fit: cover;
     border-radius: 8px;
     transition: transform 0.3s ease;
+    flex-shrink: 0; /* Zapobieganie zmniejszaniu się zdjęć */
 }
 
 .car-image:hover {
@@ -223,4 +247,56 @@ input:focus, select:focus {
     .order-form {
         padding: 1rem;
     }
+}
+
+.order-summary-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.selected-car-image {
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.selected-car-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.order-details {
+    margin: 2rem 0;
+}
+
+.summary-grid {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.summary-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 1rem;
+    padding: 0.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+.summary-item strong {
+    color: var(--primary-color);
+}
+
+.extras-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.extras-list li {
+    padding: 0.25rem 0;
+    color: var(--primary-color);
 }

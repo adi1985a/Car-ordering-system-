@@ -1,10 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('carOrderForm');
     const notification = document.getElementById('notification');
-    const modal = document.getElementById('orderModal');
-    const modalOverlay = document.getElementById('modalOverlay');
+
+    if (!form) {
+        console.error('Form not found!');
+        return;
+    }
 
     const showNotification = (message, isError = false) => {
+        if (!notification) return;
+        
         notification.textContent = message;
         notification.style.display = 'block';
         notification.style.backgroundColor = isError ? '#e74c3c' : '#2ecc71';
@@ -16,53 +21,34 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const validateField = (input) => {
-        const errorElement = input.nextElementSibling;
+        if (!input) return false;
+
+        const errorElement = input.parentElement.querySelector('.error-message');
+        if (!errorElement) return true;
+
         let isValid = true;
+        let errorMessage = '';
 
         if (input.required && !input.value) {
-            errorElement.textContent = 'This field is required';
+            errorMessage = 'This field is required';
             isValid = false;
         } else if (input.type === 'email' && !input.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-            errorElement.textContent = 'Please enter a valid email address';
+            errorMessage = 'Please enter a valid email address';
             isValid = false;
         } else if (input.id === 'name' && !input.value.match(/^[A-Za-z\s]+$/)) {
-            errorElement.textContent = 'Name should contain only letters and spaces';
+            errorMessage = 'Name should contain only letters and spaces';
             isValid = false;
         }
 
+        errorElement.textContent = errorMessage;
         errorElement.style.display = isValid ? 'none' : 'block';
         input.style.borderColor = isValid ? '#ddd' : '#e74c3c';
         return isValid;
     };
 
-    const sanitizeInput = (input) => {
-        return input.replace(/[<>]/g, '');
-    };
-
-    const showModal = () => {
-        modalOverlay.style.display = 'block';
-        modal.style.display = 'block';
-        document.body.style.overflow = 'hidden';
-        
-        // Force reflow
-        modal.offsetHeight;
-        
-        // Add visible class
-        modal.classList.add('visible');
-    };
-
-    window.closeModal = () => {
-        modal.classList.remove('visible');
-        setTimeout(() => {
-            modalOverlay.style.display = 'none';
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }, 300);
-    };
-
-    form.addEventListener('submit', async (e) => {
+    form.addEventListener('submit', function(e) {
         e.preventDefault();
-
+        
         const formInputs = form.querySelectorAll('input:not([type="checkbox"]), select');
         let isFormValid = true;
 
@@ -77,39 +63,23 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Zbieranie wybranych dodatków
-        const selectedExtras = Array.from(form.querySelectorAll('input[type="checkbox"]:checked'))
-            .map(checkbox => checkbox.value);
-
-        const formData = {
-            name: sanitizeInput(form.name.value),
-            email: sanitizeInput(form.email.value),
-            carModel: form.carModel.value,
-            brand: form.brand.value,
-            color: form.color.value,
-            extras: selectedExtras
-        };
-
-        try {
-            const submitButton = form.querySelector('.submit-btn');
+        const submitButton = form.querySelector('.submit-btn');
+        if (submitButton) {
             submitButton.disabled = true;
             submitButton.textContent = 'Processing...';
-
-            // Krótsze opóźnienie
-            await new Promise(resolve => setTimeout(resolve, 500));
-            
-            // Pokaż modal
-            showModal();
-            console.log('Modal should be visible now');
-            
-            // Reset form i przycisk
-            submitButton.disabled = false;
-            submitButton.textContent = 'Place Order';
-            
-            console.log('Order details:', formData); // Dla debugowania
-        } catch (error) {
-            showNotification('Error placing order. Please try again.', true);
         }
+
+        // Get form data
+        const formData = new FormData(form);
+        const params = new URLSearchParams();
+
+        // Add all form fields to URL parameters
+        for (let [key, value] of formData.entries()) {
+            params.append(key, value);
+        }
+
+        // Redirect to summary page
+        window.location.href = `order-summary.html?${params.toString()}`;
     });
 
     // Real-time validation
@@ -117,7 +87,4 @@ document.addEventListener('DOMContentLoaded', () => {
         input.addEventListener('blur', () => validateField(input));
         input.addEventListener('input', () => validateField(input));
     });
-
-    // Close modal when clicking outside
-    modalOverlay.addEventListener('click', closeModal);
 });
